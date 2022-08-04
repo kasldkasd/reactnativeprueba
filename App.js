@@ -11,6 +11,7 @@ import {
   View,
   Button,
   TextInput,
+  FlatList
 } from 'react-native';
 
 
@@ -28,17 +29,22 @@ const App: () => Node = () => {
   
   return (
         <View style={styles.appContainer}>
-        <View style={styles.inputContainer}>
-            <TextInput style={styles.textInput} placeholder='Your course goal' onChangeText={goalInputHandler}/>
-            <Button title='Add Goal' onPress={addGoal}/>
-        </View>
-        <View style={styles.goalsContainer}>
-          <ScrollView>
-              {courseGoals.map((goal) => <View key= {goal} style={styles.estilolista}>
-                <Text style={styles.textColor}>{goal}</Text>
-                </View>)}
-          </ScrollView>
-        </View>
+          <View style={styles.inputContainer}>
+              <TextInput style={styles.textInput} placeholder='Your course goal' onChangeText={goalInputHandler}/>
+              <Button title='Add Goal' onPress={addGoal}/>
+          </View>
+          <View style={styles.goalsContainer}>
+            <FlatList data={courseGoals}
+            renderItem={(itemData) =>{
+              return(
+                <View style={styles.estilolista}>
+                  <Text style={styles.textColor}>{itemData.item}</Text>
+                  </View>
+              )
+            }
+          }
+            alwaysBounceVertical={false} />
+          </View>
         </View>
   );
 };
